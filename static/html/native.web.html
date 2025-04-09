@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>This page is a demo for native mode to load OpenAd ad!</title>
+    <meta name="author" content="OpenAD Protocol">
+    <meta name="keywords" content="ad, ads, advertising, openad, openad protocol, openad network" />
+    <meta name="description" content="A revolution on behalf of the Web3 Advertising Ecosystem." />
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="layoutmode" content="standard">
+    <meta name="wap-font-scale" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="renderer" content="webkit|ie-comp">
+    <link rel="icon" href="https://openad.network/static/favicon.ico">
+    <link href="https://openad.network/static/css/common.css?t=v2" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" version="4.0" src="https://protocol.openad.network/tg/sdk.loader.js?v=4.0"></script>
+    <!--this style you should modify by yourself-->
+    <style>
+        .openADJsSDKBanner { height:100%; width:100%; }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--openAD codes below-->
+    <div class="openADJsSDKBanner MFlex WEBAD" zoneId="158" publisherId="49"></div>
+    <!--openAD codes above-->
+</div>
+<!--openAD script below-->
+<script type="text/javascript">
+    window.addEventListener('load',  function() {
+		window.openAdNative = {
+			// Create a params object
+			adParams: {
+			  version: 'your-app-version', // your app version , If there is no data, please leave it blank
+              TG: false, // If your app is TMA, TG = false; If your app is webApp, TG = false
+			},
+			adInfo: {
+                zoneId: 158, // int, This is an example zoneId, please get your own code parameters
+                publisherId: 49, // int, This is an example publisherId, please get your own code parameters
+			},
+			userInfo: {
+				userId: '', // user Id , If there is no data, please leave it blank
+				firstName: '', // firstName or userId , If there is no data, please leave it blank
+				lastName: '', // lastName or userId , If there is no data, please leave it blank
+				username: '', // username or userId , If there is no data, please leave it blank
+			},
+			// If the user is already logged in, initialize user data
+			initUserInfo: function(data){
+				this.userInfo.userId = data.userId;
+				this.userInfo.firstName = data.firstName;
+				this.userInfo.lastName = data.lastName;
+				this.userInfo.username = data.username;
+			},
+			// Call SDK method to get advertising data
+			getAD: function(){
+				window.OpenADTGJsSDK.banner.init({ adParams: this.adParams, adInfo: this.adInfo });
+			},
+			// Close AD
+			destroy: function(adInfo){
+			  document.querySelector(`.openADJsSDKBanner[zoneId="${adInfo.zoneId}"][publisherId="${adInfo.publisherId}"]`).innerHTML = '';
+			}
+		};
+		window.openAdNative.initUserInfo({userId: 'userId', firstName: 'firstName', lastName: 'lastName', username: 'username'}); // If the user has already logged into your application, please reset the user information
+		window.openAdNative.getAD();
+	});
+</script>
+<!--openAD script above-->
+</body>
+</html>

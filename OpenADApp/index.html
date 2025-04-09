@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <meta name="author" content="OpenAD Protocol">
+  <meta name="keywords" content="ad, ads, advertising, openad, openad protocol, openad network" />
+  <meta name="description" content="A revolution on behalf of the Web3 Advertising Ecosystem." />
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="format-detection" content="telephone=no">
+  <meta name="layoutmode" content="standard">
+  <meta name="wap-font-scale" content="no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <meta name="screen-orientation" content="portrait">
+  <meta name="x5-orientation" content="portrait">
+  <meta name="renderer" content="webkit|ie-comp">
+  <link rel="icon" href="<%= htmlWebpackPlugin.options.staticURL %>static/favicon.ico">
+  <link href="<%= htmlWebpackPlugin.options.staticURL %>static/css/common.css?t=<%= htmlWebpackPlugin.options.timeStamp %>" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" version="4.0" src="https://protocol.openad.network/tg/sdk.loader.js?v=4.0"></script>
+    <% if (htmlWebpackPlugin.options.vConsole) { %>
+    <script src="<%= htmlWebpackPlugin.options.staticURL %>static/js/vconsole.min.js"></script>
+    <script>new VConsole();console.log('VConsole Loaded: ', window.location)</script>
+    <% } %>
+    <script TYPE="text/javascript">
+      const docEl = document.documentElement;
+      const setRemUnit = () => {
+          const rem = docEl.clientWidth / 288;
+          docEl.style.fontSize = rem + 'px'
+      };
+      setRemUnit();
+      window.addEventListener('resize', setRemUnit);
+      window.addEventListener('pageshow',  (e)=> {
+          if (e.persisted) {
+              setRemUnit();
+          }
+      });
+    </script>
+  </head>
+  <body>
+      <noscript>
+        <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      </noscript>
+      <div id="app"></div>
+  </body>
+  </html>
