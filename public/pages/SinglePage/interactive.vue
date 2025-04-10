@@ -49,7 +49,7 @@ export default defineComponent({
 
     const cb = {
       // indicates load ad resource from OpenAD platform, false will be returned if there is no resource to be loaded for the publisher slot/zone
-      onAResourceLoad: (e) => {
+      onAdResourceLoad: (e) => {
         console.log('onAdResourceLoad', e);  // e = true / false
       },
       // indicates the interactive ad is opening
