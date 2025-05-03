@@ -21,28 +21,32 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
-    /** If your web application is a TMA (Telegram Mini App), please use the following code. **/
+    /** If your web application is a TMA (Telegram Mini App), please use the following codeS. **/
     const openADInteractive = reactive({
       adInfo: {
         zoneId: 159, // int, This is an example zoneId, please get your own code parameters
         publisherId: 49, // int, This is an example publisherId, please get your own code parameters
       },
       adParams: {
-        version: 'v4', //your app version , If there is no data, please leave it blank
-        TG: true, // If your app is TMA, TG = false; If your app is webApp, TG = false
-        isFullscreen: false, // true: If your TMA is in fullscreen mode
+        TG: {
+          type: 'TMA', // TMA, WEB, WEB3
+          isFullscreen: false, // true: If your TMA is in fullscreen mode
+        },
       },
+      hasAD: false,
     });
 
     onMounted(() => {
       nextTick(() => {
         window.OpenADTGJsSDK.interactive.init({ ...openADInteractive }).then(res => {
+          openADInteractive.hasAD = res.code === 0;
+          console.log('res', res);
           if(res.code === 0){
             // eslint-disable-next-line no-use-before-define
             Render();
           }
-          // res.code = 0, you can call back Render function, user can load an interactive ad;
-          // res.code != 0, you can't call back Render function, user can't load an interactive ad;
+          // hasAD = true, you can callback Render function, user can load an interactive ad;
+          // hasAD = false, you can't callback Render function, user can't load an interactive ad;
         });
       });
     });

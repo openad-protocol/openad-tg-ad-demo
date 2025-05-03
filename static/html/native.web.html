@@ -42,8 +42,9 @@
 		window.openAdNative = {
 			// Create a params object
 			adParams: {
-			  version: 'your-app-version', // your app version , If there is no data, please leave it blank
-              TG: false, // If your app is TMA, TG = false; If your app is webApp, TG = false
+                TG: {
+                    type: 'TMA', // TMA, WEB, WEB3
+                },
 			},
 			adInfo: {
                 zoneId: 158, // int, This is an example zoneId, please get your own code parameters

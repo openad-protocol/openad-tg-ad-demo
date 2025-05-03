@@ -27,6 +27,9 @@ export default defineComponent({
       { path: '/SinglePage/interface', desc: 'loads ad with interface mode...' },
       { path: '/SinglePage/native', desc: 'load ads with native mode...' },
       { path: '/SinglePage/interactive', desc: 'load ads with interactive mode...' },
+      { path: '/SinglePage/web3Provider', desc: 'load banner ad with web3 provider...' },
+      { path: '/SinglePage/web3Api', desc: 'load banner ad with web3 api...' },
+      { path: '/SinglePage/webApi', desc: 'load banner ad with web api...' },
     ]);
 
     const router = useRouter();

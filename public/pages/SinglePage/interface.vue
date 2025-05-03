@@ -9,14 +9,6 @@
         >
       </a>
     </div>
-    <div class="openADJsSDKBanner WEBAD" v-if="WEBAD.banner.resource_url && WEBAD.banner.width && WEBAD.banner.height">
-      <a href="javascript:void(0)" class="Flex" rel="noopener nofollow" @click="CallBackClickInfo(WEBAD.adInfo)">
-        <img
-          :src="WEBAD.banner.resource_url"
-          style="max-width: 100%;max-height: 100%;object-fit: contain;"
-        >
-      </a>
-    </div>
     <van-button @click="router.push('/')" type="primary">
       Go Home
     </van-button>
@@ -34,40 +26,16 @@ export default defineComponent({
   },
   setup(){
     const router = useRouter();
-    /** If your web application is a TMA (Telegram Mini App), please use the following code. **/
+    /** If your web application is a TMA (Telegram Mini App), please use the following codes. **/
     const TGAD = reactive({
-      adInfo: {
-        zoneId: 114, // int,  This is an example zoneId, please get your own code parameters
-        publisherId: 91, // int, This is an example publisherId, please get your own code parameters
-      },
-      adParams: {
-        version: 'v4', //your app version , If there is no data, please leave it blank
-        TG: true,
-      },
-      banner: {
-        'width': null,
-        'type': 'banner',
-        'height': null,
-        'resource_id': null,
-        'resource_url': '',
-        'resource_text': '',
-        'resource_desc': '',
-      },
-    });
-    /** If your web application is not TMA, please use the following code. **/
-    const WEBAD = reactive({
       adInfo: {
         zoneId: 158, // int, This is an example zoneId, please get your own code parameters
         publisherId: 49, // int, This is an example publisherId, please get your own code parameters
       },
-      userInfo: {
-        userId: 'userId', // user ID , If there is no data, please leave it blank
-        firstName: 'firstName', // firstName or userId , If there is no data, please leave it blank
-        lastName: 'lastName', // lastName or userId , If there is no data, please leave it blank
-        username: 'username', // username or userId , If there is no data, please leave it blank
-      },
       adParams: {
-        version: 'v4', //your app version , If there is no data, please leave it blank
+        TG: {
+          type: 'TMA', // TMA, WEB, WEB3
+        },
       },
       banner: {
         'width': null,
@@ -83,8 +51,6 @@ export default defineComponent({
     onMounted( () => {
       // eslint-disable-next-line no-use-before-define
       getTGAD();
-      // eslint-disable-next-line no-use-before-define
-      getWEBAD();
     });
 
     const getTGAD = async () => {
@@ -95,33 +61,8 @@ export default defineComponent({
         // eslint-disable-next-line no-use-before-define
         await CallBackLogInfo(TGAD.adInfo);
       }
-      /**
-       * code: 0, data: {  } // openAD.banner object and values
-       * code: -1, msg: 'load extend js error!'
-       * code: -2, msg: 'get openAD ads error!'
-       * code: -3, msg: 'Ajax Request 404 !'
-       * code: -4, msg: 'Ajax Request Timeout !'
-       * code: -5, msg: 'Ajax Request Error !'
-       **/
     }
 
-    const getWEBAD = async () => {
-      let res = await window.OpenADTGJsSDK.banner.get({ adInfo: WEBAD.adInfo, adParams: WEBAD.adParams, userInfo: WEBAD.userInfo });
-      console.log('getWEBAD', JSON.stringify(res));
-      if(res.code === 0){
-        WEBAD.banner = res.data;
-        // eslint-disable-next-line no-use-before-define
-        await CallBackLogInfo(WEBAD.adInfo);
-      }
-      /**
-       * code: 0, data: {  } // openAD.banner object and values
-       * code: -1, msg: 'load extend js error!'
-       * code: -2, msg: 'get openAD ads error!'
-       * code: -3, msg: 'Ajax Request 404 !'
-       * code: -4, msg: 'Ajax Request Timeout !'
-       * code: -5, msg: 'Ajax Request Error !'
-       **/
-    }
 
     const CallBackLogInfo = (adInfo) => {
       nextTick(async() => {
@@ -131,14 +72,6 @@ export default defineComponent({
         }else{
           console.log(res.msg);
         }
-        /**
-         * code: 0, msg: 'send log info successfully'
-         * code: -1, msg: 'can not find resource'
-         * code: -2, msg: 'send log info failed'
-         * code: -3, msg: 'Ajax Request 404 !'
-         * code: -4, msg: 'Ajax Request Timeout !'
-         * code: -5, msg: 'Ajax Request Error !'
-         **/
       });
     }
 
@@ -148,7 +81,7 @@ export default defineComponent({
       // No Callback, if you want to do sth, you should use yourself functions or methods;
     }
 
-    return { router, TGAD, WEBAD, CallBackClickInfo }
+    return { router, TGAD, CallBackClickInfo }
   },
 });
 </script>
