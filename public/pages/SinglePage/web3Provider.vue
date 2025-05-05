@@ -65,7 +65,7 @@ export default defineComponent({
             ...tonConnectUI.account,
             userFriendlyAddress,
           }, // this is a demo to use @townsquarelabs/ui-vue, Modal is the wallet provider
-          components: '@townsquarelabs/ui-vue', // web3 wallet components name
+          components: '@tonconnect/ui', // web3 wallet components name
         },
       },
       userInfo: { // TG.type = 'WEB3', userInfo is required
